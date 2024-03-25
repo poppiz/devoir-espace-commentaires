@@ -87,7 +87,7 @@
             </div>
           </div>
           <div class="sm:col-span-2 sm:flex sm:justify-end">
-            <button type="submit" class="mt-2 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-teal-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:w-auto">
+            <button id="btn1" type="submit" class="mt-2 inline-flex w-full items-center justify-center rounded-md border border-transparent bg-teal-500 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-teal-600 focus:outline-none focus:ring-2 focus:ring-teal-500 focus:ring-offset-2 sm:w-auto">
               Envoyer
             </button>
           </div>
@@ -96,5 +96,50 @@
     </div>
   </div>
 </div>
+
+<script>
+
+  const firstName = document.getElementById('first-name');
+  const lastName = document.getElementById('last-name');
+  const message = document.getElementById('message');
+  const btn = document.getElementById('btn1');
+  const errorMessage = document.getElementById('error-message');
+  const template =
+   `<div class="flex space-x-4 text-sm text-gray-500">
+      <div class="flex-1 py-10 border-t border-gray-200">
+        <h3 class="font-medium text-gray-900" id="namePlace"></h3>
+          <div class="prose prose-sm mt-4 max-w-none text-gray-500">
+            <p id="messagePlace"></p>
+          </div>
+      </div>
+    </div>`
+  
+  btn1.addEventListener("click", function(event) {
+    event.preventDefault();
+  });
+    
+  const clear = () => {
+    firstName.value = '';
+      lastName.value = '';
+      message.value = '';
+  };
+  
+  const add = () =>{
+   if (firstName.value == '' || lastName.value == '' || message.value == '') {errorMessage.style.display = 'block'
+    } else {
+      document.getElementById('comment-list').insertAdjacentHTML('beforeend', template);
+      const namePlace = document.getElementById('namePlace');
+      const messagePlace = document.getElementById('messagePlace');
+      namePlace.append(firstName.value + ' ' + lastName.value);
+      namePlace.removeAttribute('id');
+      messagePlace.append(message.value);
+      messagePlace.removeAttribute('id');
+      clear()
+      errorMessage.style.display = 'none'
+    }} ;
+  
+  btn.addEventListener("click", add);
+  
+  </script>
 </body>
 </html>
